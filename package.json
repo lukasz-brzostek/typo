@@ -1,0 +1,34 @@
+{
+  "name": "typo",
+  "version": "1.0.0",
+  "description": "Plugin for typography improvement",
+  "main": "typo.js",
+  "dependencies": {
+    "copy": "^0.3.2",
+    "grunt": "^1.0.3",
+    "grunt-contrib-watch": "^1.1.0",
+    "uglify": "^0.1.5",
+    "watch": "^1.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukasz-brzostek/typo.git"
+  },
+  "keywords": [
+    "typo",
+    "typography",
+    "text",
+    "text",
+    "improvement"
+  ],
+  "author": "Łukasz Brzostek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lukasz-brzostek/typo/issues"
+  },
+  "homepage": "https://github.com/lukasz-brzostek/typo#readme"
+}
