@@ -8,12 +8,11 @@ $.fn.typography = function (userOptions) {
     spaceExclamation: false,
     spaceBracket: false,
     spaceDashes: false,
-    oneSpace: false,
+    oneSpace: true,
     oneComma: false,
     oneQuestion: false,
     oneExclamation: false,
-    oneBracket: false,
-    allOptions: false
+    oneBracket: false
     }, userOptions);
     if (options.styling == true) {
     $("<style>body {-webkit-font-smoothing: subpixel-antialiased!important;-webkit-text-stroke: 1px transparent!important;-moz-osx-font-smoothing: grayscale!important;text-rendering: optimizeLegibility!important;word-break: break-word!important;font-kerning: normal!important;}</style>").appendTo('body');
@@ -21,21 +20,6 @@ $.fn.typography = function (userOptions) {
     $(".typo").each( function () {
 	var content = $(this).html();
 	var processed = content;
-    if (options.allOptions == true) {
-    options.styling = true,
-    options.nbsp = true,
-    options.spaceComma = true,
-    options.spaceDot = true,
-    options.spaceQuestion = true,
-    options.spaceExclamation = true,
-    options.spaceBracket = true,
-    options.spaceDashes = true,
-    options.oneSpace = true,
-    options.oneComma = true,
-    options.oneQuestion = true,
-    options.oneExclamation = true,
-    options.oneBracket = true
-    }
     if (options.oneComma == true) {    
     processed = processed.replace(/\,\,+/g, ","); // change multiple commas to one comma
     }
@@ -51,9 +35,6 @@ $.fn.typography = function (userOptions) {
 	if (options.spaceComma == true) {
 	processed = processed.replace(/,/g, ', ').replace(/ ,/g, ','); // add space after comma and remove before
     }
-    if (options.spaceDot == true) {
-    processed = processed.replace(/\./g, '. ').replace(/ \./g, '.'); // add space after dot and remove before
-    }
     if (options.spaceQuestion == true) {
     processed = processed.replace(/\?/g, '? ').replace(/ \?/g, '?'); // add space after question mark and remove before
     }
@@ -63,6 +44,9 @@ $.fn.typography = function (userOptions) {
     if (options.spaceBracket == true) {
     processed = processed.replace(/\( /g, '(').replace(/\(/g, ' (').replace(/\)/g, ') ').replace(/ \)/g, ')'); // remove-add space between bracket
     processed = processed.replace(/\[ /g, '[').replace(/\[/g, ' [').replace(/\]/g, '] ').replace(/ \]/g, ']'); // remove-add space between sqare bracket
+    }
+    if (options.spaceDot == true) {
+    processed = processed.replace(/\./g, '. ').replace(/ \./g, '.'); // add space after dot and remove before
     }
     if (options.spaceDashes == true) {
     processed = processed.replace(/-+/g, " - "); // add spaces between dashes;
@@ -80,7 +64,7 @@ $.fn.typography = function (userOptions) {
     processed = processed.replace(/(\s\w{0,1}\w\s)/gi, "$1&nbsp;")
     processed = processed.replace(/(\s[ż]\w\s{1})/gi, "$1&nbsp;");
 	processed = processed.replace(/\s&nbsp;/gi, "&nbsp;"); // remove spaces between &nbsp;
-	processed = processed.replace(/(?:&nbsp;){2,}/gi, "&nbsp;"); // remove doubled &nbsp;
+	processed = processed.replace(/(&nbsp;)\1+/g, "&nbsp;"); // remove doubled &nbsp;
     }
 	$(this).html(processed);
 });
