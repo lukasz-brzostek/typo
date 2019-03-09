@@ -2,6 +2,9 @@ $.fn.typography = function (userOptions) {
     var options = $.extend({ 
     styling: true,
     spaceComma: true,
+    spaceDot: true,
+    spaceQuestion: true,
+    spaceExclamation: true,
     oneSpace: true,
     nbsp: true
     }, userOptions);
@@ -12,7 +15,20 @@ $.fn.typography = function (userOptions) {
 	var content = $(this).html();
 	var processed = content;
 	if (options.spaceComma == true) {
-	processed = processed.replace(',', ', '); // add space after comma
+	processed = processed.replace(/,/g, ', '); // add space after comma
+    processed = processed.replace(/ ,/g, ','); // remove space before comma
+    }
+    if (options.spaceDot == true) {
+    processed = processed.replace(/\./g, '. '); // add space after dot
+    processed = processed.replace(/ \./g, '.'); // remove space before dot
+    }
+    if (options.spaceQuestion == true) {
+    processed = processed.replace(/\?/g, '? '); // add space after question mark
+    processed = processed.replace(/ \?/g, '?'); // remove space before question mark
+    }
+    if (options.spaceExclamation == true) {
+    processed = processed.replace(/\!/g, '! '); // add space after exclamation mark
+    processed = processed.replace(/ \!/g, '!'); // remove space before exclamation mark
     }
 	if (options.oneSpace == true) {    
 	processed = processed.replace(/\s\s+/g, " "); // change multiple spaces to one space
