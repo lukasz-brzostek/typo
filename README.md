@@ -15,8 +15,7 @@ In step 2 call script from your website code:
 
 ```
 <script>
-$.fn.typography({
-});
+$.fn.typography();
 </script>
 ```
 
