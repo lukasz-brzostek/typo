@@ -1,12 +1,19 @@
 $.fn.typography = function (userOptions) {
     var options = $.extend({ 
     styling: true,
-    spaceComma: true,
-    spaceDot: true,
-    spaceQuestion: true,
-    spaceExclamation: true,
-    oneSpace: true,
-    nbsp: true
+    nbsp: true,
+    spaceComma: false,
+    spaceDot: false,
+    spaceQuestion: false,
+    spaceExclamation: false,
+    spaceBracket: false,
+    spaceDashes: false,
+    oneSpace: false,
+    oneComma: false,
+    oneQuestion: false,
+    oneExclamation: false,
+    oneBracket: false,
+    allOptions: false
     }, userOptions);
     if (options.styling == true) {
     $("<style>body {-webkit-font-smoothing: subpixel-antialiased!important;-webkit-text-stroke: 1px transparent!important;-moz-osx-font-smoothing: grayscale!important;text-rendering: optimizeLegibility!important;word-break: break-word!important;font-kerning: normal!important;}</style>").appendTo('body');
@@ -14,24 +21,54 @@ $.fn.typography = function (userOptions) {
     $(".typo").each( function () {
 	var content = $(this).html();
 	var processed = content;
+    if (options.allOptions == true) {
+    options.styling = true,
+    options.nbsp = true,
+    options.spaceComma = true,
+    options.spaceDot = true,
+    options.spaceQuestion = true,
+    options.spaceExclamation = true,
+    options.spaceBracket = true,
+    options.spaceDashes = true,
+    options.oneSpace = true,
+    options.oneComma = true,
+    options.oneQuestion = true,
+    options.oneExclamation = true,
+    options.oneBracket = true
+    }
+    if (options.oneComma == true) {    
+    processed = processed.replace(/\,\,+/g, ","); // change multiple commas to one comma
+    }
+    if (options.oneQuestion == true) {    
+    processed = processed.replace(/\?\?+/g, "?"); // change multiple question marks to one
+    }
+    if (options.oneExclamation == true) {    
+    processed = processed.replace(/\!\!+/g, "!"); // change multiple exclamation marks to one
+    }
+    if (options.oneBracket == true) {    
+    processed = processed.replace(/\(\(+/g, "(").replace(/\)\)+/g, ")").replace(/\[\[+/g, "[").replace(/\]\]+/g, "]"); // change multiple brackets to one
+    }
 	if (options.spaceComma == true) {
-	processed = processed.replace(/,/g, ', '); // add space after comma
-    processed = processed.replace(/ ,/g, ','); // remove space before comma
+	processed = processed.replace(/,/g, ', ').replace(/ ,/g, ','); // add space after comma and remove before
     }
     if (options.spaceDot == true) {
-    processed = processed.replace(/\./g, '. '); // add space after dot
-    processed = processed.replace(/ \./g, '.'); // remove space before dot
+    processed = processed.replace(/\./g, '. ').replace(/ \./g, '.'); // add space after dot and remove before
     }
     if (options.spaceQuestion == true) {
-    processed = processed.replace(/\?/g, '? '); // add space after question mark
-    processed = processed.replace(/ \?/g, '?'); // remove space before question mark
+    processed = processed.replace(/\?/g, '? ').replace(/ \?/g, '?'); // add space after question mark and remove before
     }
     if (options.spaceExclamation == true) {
-    processed = processed.replace(/\!/g, '! '); // add space after exclamation mark
-    processed = processed.replace(/ \!/g, '!'); // remove space before exclamation mark
+    processed = processed.replace(/\!/g, '! ').replace(/ \!/g, '!'); // add space after exclamation mark and remove before
     }
-	if (options.oneSpace == true) {    
-	processed = processed.replace(/\s\s+/g, " "); // change multiple spaces to one space
+    if (options.spaceBracket == true) {
+    processed = processed.replace(/\( /g, '(').replace(/\(/g, ' (').replace(/\)/g, ') ').replace(/ \)/g, ')'); // remove-add space between bracket
+    processed = processed.replace(/\[ /g, '[').replace(/\[/g, ' [').replace(/\]/g, '] ').replace(/ \]/g, ']'); // remove-add space between sqare bracket
+    }
+    if (options.spaceDashes == true) {
+    processed = processed.replace(/-+/g, " - "); // add spaces between dashes;
+    }
+    if (options.oneSpace == true) {    
+    processed = processed.replace(/\s\s+/g, " "); // change multiple spaces to one space
     }
     if (options.nbsp == true) { // Add &nbsp;
     processed = processed.replace(/(\s\w\s{1})/gi, "$1&nbsp;");
