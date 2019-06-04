@@ -55,7 +55,7 @@ In step 4 add typo class to elements with text content:
 
 ## License
 
-Corner Popup is licensed under the Creative Commons Attribution 4.0 
+typo is licensed under the Creative Commons Attribution 4.0 
 International License: https://creativecommons.org/licenses/by/4.0
 
 ## Author
