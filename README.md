@@ -35,7 +35,7 @@ Option | Default | Description
 enableAll | false | Turns on all available options
 styling | true | Adds basic styles that improves fonts in website body
 wordBreak | true | Sets wordBreak to "break-word" when true and "normal" when false
-nbsp | true | The most important option, which brings 1, 2 or 3 letter words at the end of the line to the next one, making typography better
+nbsp | true | The most important option, which brings 1, 2 or 3 letter words (short orphans) at the end of the line to the next one, making typography better
 spaceComma | false | Adds space after comma and removes before
 spaceDot | false | Adds space after dot and removes before
 spaceQuestion | false | Adds space after question mark and removes before
