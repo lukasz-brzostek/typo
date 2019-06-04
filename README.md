@@ -52,15 +52,15 @@ In step 4 add typo class to elements with text content:
 ```
 <div class="typo">Website content</div>
 ```
-License
-```
-typo is licensed under the Creative Commons Attribution 4.0 International License: https://creativecommons.org/licenses/by/4.0
-```
 
-Author
-```
-Łukasz Brzostek
+## License
 
-Have a question about usage? Found a bug?
+Corner Popup is licensed under the Creative Commons Attribution 4.0 
+International License: https://creativecommons.org/licenses/by/4.0
+
+## Author
+
+**Łukasz Brzostek**
+
+Have a question about usage? Found a bug?<br>
 Feel free to write a message to me: info@espritdesign.pl
-```
