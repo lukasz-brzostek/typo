@@ -1,4 +1,4 @@
-# typo v 1.1
+# typo v 1.2
 
 jQuery plugin which will help you improve typography / content on your website.
 
