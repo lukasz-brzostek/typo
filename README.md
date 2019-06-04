@@ -19,7 +19,7 @@ $.fn.typography();
 </script>
 ```
 
-In step 3 you can (but it's not necessary) set some options in previously added code:
+In step 3 you can set some options in previously added code (but it's not necessary):
 ```
 <script>
 $.fn.typography({
@@ -27,6 +27,26 @@ $.fn.typography({
 });
 </script>
 ```
+
+All available options with description:
+
+Option | Default | Description
+------ | ------- | -----------
+enableAll | false | Turns on all available options
+styling | true | Adds basic styles that improves fonts in website body
+wordBreak | true | Sets wordBreak to "break-word" when true and "normal" when false
+nbsp | true | Most important option which brings 1, 2 or 3 letter words to next row making typography better
+spaceComma | false | Adds space after comma and removes before
+spaceDot | false | Adds space after dot and removes before
+spaceQuestion | false | Adds space after question mark and removes before
+spaceExclamation | false | Adds space after exclamation mark and removes before
+spaceBracket | false | Adds spaces outside of brackets and removes unnecessary spaces inside
+spaceDashes | false | Adds spaces between dashes
+oneSpace | false | Changes multiple unnecessary spaces to one space
+oneComma | false | Changes multiple unnecessary commas to one comma
+oneQuestion | false | Changes multiple unnecessary question signs to one
+oneExclamation | false | Changes multiple exclamation signs to one
+oneBracket | false | Changes multiple bracket signs to one
 
 In step 4 add typo class to elements with text content:
 ```
