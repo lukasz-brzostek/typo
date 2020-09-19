@@ -1,6 +1,9 @@
 # typo v 1.3
 
 jQuery plugin which will help you improve typography / content on your website.
+typo primarily removes from content short orphans at the end of the line to the 
+next one, making typography better. It also helps to improve text display and 
+corrects some errors, like adding space after comma or removing doubled brackets.
 
 ## How to use
 
