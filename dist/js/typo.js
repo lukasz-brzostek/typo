@@ -1,4 +1,24 @@
+/*
+ * typo v1.3 - 18/9/2020
+ * Author: Łukasz Brzostek
+ *
+ * This work is licensed under the Creative Commons
+ * Attribution 4.0 International License:
+ * https://creativecommons.org/licenses/by/4.0
+*/
+
+// Check for jQuery
+// ----------------
+
+if ("undefined" == typeof jQuery)
+    throw new Error("typo requires jQuery");
+
+(function($){
 $.fn.typography = function (userOptions) {
+
+// Default plugin options
+// ----------------------
+
     var options = $.extend({
     enableAll: false,
     styling: true,
@@ -16,6 +36,7 @@ $.fn.typography = function (userOptions) {
     oneExclamation: false,
     oneBracket: false
     }, userOptions);
+
     if (options.wordBreak == true || options.enableAll == true) {
     var wordb = "break-word;";
     }
@@ -62,15 +83,19 @@ $.fn.typography = function (userOptions) {
     if (options.nbsp == true || options.enableAll == true) { // Add &nbsp;
     processed = processed.replace(/(\s\w\s{1})/gi, "$1&nbsp;");
     processed = processed.replace(/(\b\s\w{2}\s)/gi, "$1&nbsp;");
+    processed = processed.replace(/(\b\s\w{3}\s)/gi, "$1&nbsp;");
+    processed = processed.replace(/(\s\w{2}\S\s)/gi, "$1&nbsp;");
     processed = processed.replace(/(\s\w{2}\s)/gi, "$1&nbsp;");
     processed = processed.replace(/(\s\d{0,2}\d\s)/gi, "$1&nbsp;");
-	processed = processed.replace(/(\b\s\w{0,3}\b\s\b)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\s\w{0,2}\W\s)/gi, "$1&nbsp;")
-    processed = processed.replace(/(\s\w{0,1}\w\s)/gi, "$1&nbsp;")
+    processed = processed.replace(/(\b\s\w{0,3}\b\s\b)/gi, "$1&nbsp;");
+    processed = processed.replace(/(\s[-–*+=/<>]\s)/i, "$1&nbsp;");
+    processed = processed.replace(/(\s\w{2}[.]\s)/ig, "$1&nbsp;");
+    processed = processed.replace(/(\s\w{0,1}\w\s)/gi, "$1&nbsp;");
     processed = processed.replace(/(\s[ż]\w\s{1})/gi, "$1&nbsp;");
-	processed = processed.replace(/\s&nbsp;/gi, "&nbsp;"); // remove spaces between &nbsp;
-	processed = processed.replace(/(&nbsp;)\1+/g, "&nbsp;"); // remove doubled &nbsp;
+    processed = processed.replace(/\s&nbsp;/gi, "&nbsp;"); // remove spaces between &nbsp;
+    processed = processed.replace(/(&nbsp;)\1+/g, "&nbsp;"); // remove doubled &nbsp;
     }
 	$(this).html(processed);
 });
 };
+})(jQuery);
