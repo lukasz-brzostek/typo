@@ -5,6 +5,9 @@ typo primarily removes from content short orphans at the end of the line to the
 next one, making typography better. It also helps to improve text display and 
 corrects some errors, like adding space after comma or removing doubled brackets.
 
+Website: https://espritdesign.pl/typo
+Demo: https://espritdesign.pl/typo#demo
+
 ## How to use
 
 Using typo is very simple. As the first step, add jQuery and typo js file for the project:
