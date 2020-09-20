@@ -84,14 +84,15 @@ $.fn.typography = function (userOptions) {
     processed = processed.replace(/(\s\w\s{1})/gi, "$1&nbsp;");
     processed = processed.replace(/(\b\s\w{2}\s)/gi, "$1&nbsp;");
     processed = processed.replace(/(\b\s\w{3}\s)/gi, "$1&nbsp;");
+    processed = processed.replace(/(\s\w{3}\s)/gi, "$1&nbsp;");
     processed = processed.replace(/(\s\w{2}\S\s)/gi, "$1&nbsp;");
     processed = processed.replace(/(\s\w{2}\s)/gi, "$1&nbsp;");
     processed = processed.replace(/(\s\d{0,2}\d\s)/gi, "$1&nbsp;");
     processed = processed.replace(/(\b\s\w{0,3}\b\s\b)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\s[-–*+=/<>]\s)/i, "$1&nbsp;");
     processed = processed.replace(/(\s\w{2}[.]\s)/ig, "$1&nbsp;");
     processed = processed.replace(/(\s\w{0,1}\w\s)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\s[ż]\w\s{1})/gi, "$1&nbsp;");
+    processed = processed.replace(/(\s\W[że]\s)/gi, "$1&nbsp;");
+    processed = processed.replace(/(\s\w\S{1}\w\s)/gi, "$1&nbsp;");
     processed = processed.replace(/\s&nbsp;/gi, "&nbsp;"); // remove spaces between &nbsp;
     processed = processed.replace(/(&nbsp;)\1+/g, "&nbsp;"); // remove doubled &nbsp;
     }
