@@ -1,5 +1,5 @@
 /*
- * typo v1.3 - 18/9/2020
+ * typo v1.4 - 22/9/2020
  * Author: Łukasz Brzostek
  *
  * This work is licensed under the Creative Commons
@@ -37,64 +37,77 @@ $.fn.typography = function (userOptions) {
     oneBracket: false
     }, userOptions);
 
-    if (options.wordBreak == true || options.enableAll == true) {
-    var wordb = "break-word;";
+// Loop for each option if enableAll is true
+// -----------------------------------------
+
+    if (options.enableAll) {
+       for (var i in options) options[i] = true;
     }
-    if (options.styling == true || options.enableAll == true) {
-    $("body").append("<style>body {-webkit-font-smoothing: subpixel-antialiased;-webkit-text-stroke: 1px transparent;-moz-osx-font-smoothing: grayscale;text-rendering: optimizeLegibility;font-kerning: normal;word-break: " + (wordb != null ? wordb: 'normal') + "}</style>");
+
+// Insert additional styles if styling or word break is active
+// -----------------------------------------------------------
+
+    if (options.wordBreak) var wordb = "break-word;";
+
+    if (options.wordBreak && !options.styling) {
+       $("body").append("<style>body {word-break: " + (wordb != null ? wordb: 'normal') + "}</style>");        
     }
+
+    if (options.styling) {
+       $("body").append("<style>body {-webkit-font-smoothing: subpixel-antialiased;-webkit-text-stroke: 1px transparent;-moz-osx-font-smoothing: grayscale;text-rendering: optimizeLegibility;font-kerning: normal;word-break: " + (wordb != null ? wordb: 'normal') + "}</style>");
+    }
+
+// Process content with selected by user options
+// ---------------------------------------------
+
     $(".typo").each( function () {
-	var content = $(this).html();
-	var processed = content;
-    if (options.oneComma == true || options.enableAll == true) {    
-    processed = processed.replace(/\,\,+/g, ","); // change multiple commas to one comma
+	   var content = $(this).html();
+	   var processed = content;
+    if (options.oneComma) {
+       processed = processed.replace(/\,\,+/g, ","); // change multiple commas to one comma
     }
-    if (options.oneQuestion == true || options.enableAll == true) {    
-    processed = processed.replace(/\?\?+/g, "?"); // change multiple question marks to one
+    if (options.oneQuestion) {
+       processed = processed.replace(/\?\?+/g, "?"); // change multiple question marks to one
     }
-    if (options.oneExclamation == true || options.enableAll == true) {    
-    processed = processed.replace(/\!\!+/g, "!"); // change multiple exclamation marks to one
+    if (options.oneExclamation) {
+       processed = processed.replace(/\!\!+/g, "!"); // change multiple exclamation marks to one
     }
-    if (options.oneBracket == true || options.enableAll == true) {    
-    processed = processed.replace(/\(\(+/g, "(").replace(/\)\)+/g, ")").replace(/\[\[+/g, "[").replace(/\]\]+/g, "]"); // change multiple brackets to one
+    if (options.oneBracket) {
+       processed = processed.replace(/\(\(+/g, "(").replace(/\)\)+/g, ")").replace(/\[\[+/g, "[").replace(/\]\]+/g, "]").replace(/\{\{+/g, "{").replace(/\}\}+/g, "}"); // change multiple brackets to one
     }
-	if (options.spaceComma == true || options.enableAll == true) {
-	processed = processed.replace(/,/g, ', ').replace(/ ,/g, ','); // add space after comma and remove before
+	if (options.spaceComma) {
+	   processed = processed.replace(/(,\b)/g, ', ').replace(/\s{1,},/g, ','); // add space after comma and remove before
     }
-    if (options.spaceQuestion == true || options.enableAll == true) {
-    processed = processed.replace(/\?/g, '? ').replace(/ \?/g, '?'); // add space after question mark and remove before
+    if (options.spaceQuestion) {
+       processed = processed.replace(/\?/g, '? ').replace(/\s{1,}\?/g, '?'); // add space after question mark and remove before
     }
-    if (options.spaceExclamation == true || options.enableAll == true) {
-    processed = processed.replace(/\!/g, '! ').replace(/ \!/g, '!'); // add space after exclamation mark and remove before
+    if (options.spaceExclamation) {
+       processed = processed.replace(/\!/g, '! ').replace(/\s{1,}\!/g, '!'); // add space after exclamation mark and remove before
     }
-    if (options.spaceBracket == true || options.enableAll == true) {
-    processed = processed.replace(/\( /g, '(').replace(/\(/g, ' (').replace(/\)/g, ') ').replace(/ \)/g, ')'); // remove-add space between bracket
-    processed = processed.replace(/\[ /g, '[').replace(/\[/g, ' [').replace(/\]/g, '] ').replace(/ \]/g, ']'); // remove-add space between sqare bracket
+    if (options.spaceBracket) {
+       processed = processed.replace(/\( /g, '(').replace(/\(/g, ' (').replace(/\)/g, ') ').replace(/ \)/g, ')'); // remove-add space between bracket
+       processed = processed.replace(/\[ /g, '[').replace(/\[/g, ' [').replace(/\]/g, '] ').replace(/ \]/g, ']'); // remove-add space between sqare bracket
     }
-    if (options.spaceDot == true || options.enableAll == true) {
-    processed = processed.replace(/\./g, '. ').replace(/ \./g, '.'); // add space after dot and remove before
+    if (options.spaceDot) {
+       processed = processed.replace(/\./g, '. ').replace(/\s{1,}\./g, '.'); // add space after dot and remove before
     }
-    if (options.spaceDashes == true || options.enableAll == true) {
-    processed = processed.replace(/-+/g, " - "); // add spaces between dashes;
+    if (options.spaceDashes) {
+       processed = processed.replace(/-+/g, " - "); // add spaces between dashes;
     }
-    if (options.oneSpace == true || options.enableAll == true) {    
-    processed = processed.replace(/\s\s+/g, " "); // change multiple spaces to one space
+    if (options.oneSpace) {    
+       processed = processed.replace(/\s\s+/g, " "); // change multiple spaces to one space
     }
-    if (options.nbsp == true || options.enableAll == true) { // Add &nbsp;
-    processed = processed.replace(/(\s\w\s{1})/gi, "$1&nbsp;");
-    processed = processed.replace(/(\b\s\w{2}\s)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\b\s\w{3}\s)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\s\w{3}\s)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\s\w{2}\S\s)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\s\w{2}\s)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\s\d{0,2}\d\s)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\b\s\w{0,3}\b\s\b)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\s\w{2}[.]\s)/ig, "$1&nbsp;");
-    processed = processed.replace(/(\s\w{0,1}\w\s)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\s\W[że]\s)/gi, "$1&nbsp;");
-    processed = processed.replace(/(\s\w\S{1}\w\s)/gi, "$1&nbsp;");
-    processed = processed.replace(/\s&nbsp;/gi, "&nbsp;"); // remove spaces between &nbsp;
-    processed = processed.replace(/(&nbsp;)\1+/g, "&nbsp;"); // remove doubled &nbsp;
+    if (options.nbsp) { // RegEx to add &nbsp; in various cases
+       processed = processed.replace(/(\b\s\w{1,3}\s)/g, "$1&nbsp;");
+       processed = processed.replace(/(\b\s\w{1,2}\s)/g, "$1&nbsp;");
+       processed = processed.replace(/(\s\w{1,3}\s)/g, "$1&nbsp;"); 
+       processed = processed.replace(/(&nbsp;\w{1,3}\s)/g, "$1&nbsp;");
+       processed = processed.replace(/([,.]\w{1,3}\s)/g, "$1&nbsp;");
+       processed = processed.replace(/(\s\w{1,3}[,.])/g, "$1&nbsp;");
+       processed = processed.replace(/(\s\w{1,3}\W\s)/g, "$1&nbsp;"); 
+       processed = processed.replace(/(\d{1,3}[,.]\s)/g, "$1&nbsp;");
+       processed = processed.replace(/(\s{0,10}&nbsp;\s{0,10})/g, "&nbsp;"); // remove spaces between &nbsp;
+       processed = processed.replace(/(&nbsp;)\1+/g, "&nbsp;"); // remove doubled &nbsp;
     }
 	$(this).html(processed);
 });
