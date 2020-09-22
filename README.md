@@ -1,4 +1,4 @@
-# typo v 1.3
+# typo v 1.4
 
 jQuery plugin which will help you improve typography / content on your website.
 typo primarily removes from content short orphans at the end of the line to the 
